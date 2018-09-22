@@ -64,16 +64,7 @@ class AuthUserController extends BaseController {
         if($id != 0){
             $user = AuthUser::find($id);
             $template['item'] = $user;
-            $template['select_social_network'] = AuthUser::leftJoin('auth_user_social as aus','aus.auth_user_id','=','auth_user.id')
-                                                            ->where('auth_user.id','=',$id)
-                                                            ->select([
-                                                                'aus.auth_user_id',
-                                                                'aus.social_network_id',
-                                                                'aus.url'
-                                                            ])->get()->keyBy('social_network_id');
         }
-
-        $template['social_network'] = SocialNetwork::all();
 
         return view('AuthUsers.detail',$template);
     }
@@ -89,9 +80,6 @@ class AuthUserController extends BaseController {
             $password = Input::get('password');
             $samepassword = Input::get('password_other');
             $role_id = Input::get("role_id");
-
-            $bio = Input::get('bio');
-            $path = $request->file('path');
 
             if($id != 0) {
                 $auth_user = AuthUser::find($id);
@@ -117,27 +105,7 @@ class AuthUserController extends BaseController {
                 return response(json_encode(array("error" => 2)), 200);
             }
 
-            if($role_id != 6){
-                $auth_user->bio = $bio;
-                if(!is_null($path)){
-                    $path = imageUploader::upload_s3($auth_user,$path,"auth_user");
-                    $auth_user->path = $path;
-                }
-            }
-
             $auth_user->save();
-
-            $social_network = SocialNetwork::all();
-
-            foreach($social_network as $key => $value){
-                if($request->has("social_network_".$value->id)){
-                    if($auth_user->social_network->contains($value->id)){
-                        $auth_user->social_network()->sync([$value->id => [ 'url' => $request['social_network_'.$value->id] ]],false);
-                    }else{
-                        $auth_user->social_network()->attach([$value->id => [ 'url' => $request['social_network_'.$value->id] ]]);
-                    }
-                }
-            }
 
             return response(json_encode(array("error" => 0,"id" => $auth_user->id)), 200);
 

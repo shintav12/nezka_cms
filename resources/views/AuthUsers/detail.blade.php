@@ -204,56 +204,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12">
-                                <hr style="border-color: #e2e2e2;">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <h4 class="" style="margin:0px;">
-                                                Redes Sociales
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                @foreach($social_network as $key => $value)
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="col-xs-12">
-                                                <label>{{ $value->title }}</label>
-                                                <input type="text" class="form-control" name="social_network_{{ $value->id }}" value="{{ isset($select_social_network[$value->id]) ? $select_social_network[$value->id]->url:"" }}" placeholder="Ingrese su {{ $value->title }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                            <div class="col-xs-12" id="box-author" style="display: none">
-                                <hr style="border-color: #e2e2e2;">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <h4 class="" style="margin:0px;">
-                                                Caja de Autor
-                                            </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <label>Bio (Máximo 200 caracteres)</label>
-                                            <textarea id="bio" class="form-control" maxlength="200" name="bio"><?php if( isset($item) )  echo $item->bio;?></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <div class="form-group ">
-                                        <div class="col-xs-12">
-                                            <label>Foto (154 x 154, jpg) </label>
-                                            <input id="input-25" class="input-fixed" name="path" type="file">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">
