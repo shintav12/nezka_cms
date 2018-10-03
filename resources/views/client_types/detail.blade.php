@@ -1,10 +1,10 @@
 @extends('layout.master')
 
 @section('css')
-<link href="{{asset("assets/global/plugins/file-input/css/fileinput.css")}}" rel="stylesheet" type="text/css" />
-<link href="{{asset("assets/global/plugins/select2/css/select2.css")}}" rel="stylesheet" type="text/css" />
-<link href="{{asset("assets/global/plugins/select2/css/select2-bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
- <link href="{{asset("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("assets/global/plugins/file-input/css/fileinput.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("assets/global/plugins/select2/css/select2.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("assets/global/plugins/select2/css/select2-bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset("assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css")}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('scripts')
@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'clients/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
+                    "<?php echo config('app.path_url').'client_types/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });
@@ -45,46 +45,38 @@
                     name: "Campo requerido"
                 },
                 submitHandler: function (form) {
-                        if($(".kv-fileinput-error").css("display") == "block"){
-                            swal.close();
-                            swal(
-                                'Oops...',
-                                'La imagen que intenta subir no cumple con la medida indicada o tiene un formato inválido',
-                                'error'
-                            );
-                            return;
-                        }
-                        $.ajax({
-                            type: "POST",
-                            dataType: "json",
-                            url: "{{ route('client_save') }}",
-                            data: new FormData($("#form-user")[0]),
-                            contentType: false,
-                            processData: false,
-                            beforeSend: function () {
-                                swal({
-                                    title: 'Cargando...',
-                                    timer: 10000,
-                                    showCancelButton: false,
-                                    showConfirmButton: false,
-                                    onOpen: function () {
-                                        swal.showLoading()
-                                    }
-                                });
-                            },
-                            success: function (data) {
-                                var error = data.error;
-                                if (error == 0) {
-                                    window.location = "{{ url(route('clients'))}}";
-                                } else {
-                                    swal.close();
-                                    swal(
-                                        'Oops...',
-                                        'Algo ocurrió!',
-                                        'error'
-                                    );
+                    if($(".kv-fileinput-error").css("display") == "block"){
+                        swal.close();
+                        swal(
+                            'Oops...',
+                            'La imagen que intenta subir no cumple con la medida indicada o tiene un formato inválido',
+                            'error'
+                        );
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        url: "{{ route('client_type_save') }}",
+                        data: new FormData($("#form-user")[0]),
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            swal({
+                                title: 'Cargando...',
+                                timer: 10000,
+                                showCancelButton: false,
+                                showConfirmButton: false,
+                                onOpen: function () {
+                                    swal.showLoading()
                                 }
-                            }, error: function () {
+                            });
+                        },
+                        success: function (data) {
+                            var error = data.error;
+                            if (error == 0) {
+                                window.location = "{{ url(route('client_types'))}}";
+                            } else {
                                 swal.close();
                                 swal(
                                     'Oops...',
@@ -92,7 +84,15 @@
                                     'error'
                                 );
                             }
-                        });
+                        }, error: function () {
+                            swal.close();
+                            swal(
+                                'Oops...',
+                                'Algo ocurrió!',
+                                'error'
+                            );
+                        }
+                    });
 
                 }
             });
@@ -128,6 +128,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
+                                                    <label>Subtitulo</label>
+                                                    <input type="text" class="form-control" name="subtitle" value="<?php if( isset($item) )  echo $item->description;?>" placeholder="Ingrese el nombre del blog">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group ">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
@@ -145,7 +153,7 @@
                                 <div class="col-xs-12">
                                     <div class="col-md-3 col-md-9">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
-                                        <a type="button" href="{{route('cients')}}" class="btn default">Cancel</a>
+                                        <a type="button" href="{{route('client_types')}}" class="btn default">Cancel</a>
                                     </div>
                                 </div>
                             </div>

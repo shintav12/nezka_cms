@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'services/'.$item->id.'/'.$item->path.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'services/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });
@@ -124,7 +124,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Titulo</label>
-                                                    <input type="text" class="form-control" name="title" value="<?php if( isset($item) )  echo $item->title;?>" placeholder="Ingrese el nombre del blog">
+                                                    <input type="text" class="form-control" name="title" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +132,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Subtitulo</label>
-                                                    <input type="text" class="form-control" name="subtitle" value="<?php if( isset($item) )  echo $item->subtitle;?>" placeholder="Ingrese el nombre del blog">
+                                                    <input type="text" class="form-control" name="subtitle" value="<?php if( isset($item) )  echo $item->description;?>" placeholder="Ingrese el nombre del blog">
                                                 </div>
                                             </div>
                                         </div>

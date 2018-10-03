@@ -40,10 +40,10 @@ class SliderController extends BaseController
     }
 
     public function load(){
-        $slider = DB::select(DB::raw("select m.id, m.title, m.created_at, m.updated_at, m.status 
-                                      from slider_banner m
-                                      order by m.id ASC"));
-        return DataTables   ::of($slider)
+        $slider = DB::select(DB::raw("select id, title, created_at, updated_at, status 
+                                      from slider_banner
+                                      order by id ASC"));
+        return DataTables::of($slider)
             ->make(true);
     }
 
@@ -88,7 +88,7 @@ class SliderController extends BaseController
 
             if(!is_null($image)){
                 $path = imageUploader::upload($slider,$image,"slider");
-                $slider->path = $path;
+                $slider->image = $path;
                 $slider->save();
             }
 

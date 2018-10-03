@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Services;
+use App\Models\ClientType;
 use App\Utils\imageUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,24 +11,24 @@ use Illuminate\Support\Facades\Input;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 
-class ServicesController extends BaseController
+class ClientTypeController extends BaseController
 {
     public function index(){
         $template = array(
-            "menu_active" => "services",
+            "menu_active" => "client_types",
             "smenu_active" => "",
-            "page_title" => "Servicios",
+            "page_title" => "Tipos de Cliente",
             "page_subtitle" => "",
             "user" => session('user')
         );
-        return view('services.index',$template);
+        return view('client_types.index',$template);
     }
 
     public function change_status(){
         try{
             $id = Input::get('id');
             $status = intval(Input::get('status'));
-            $services = Services::find($id);
+            $services = ClientType::find($id);
             $services->status = $status;
             $services->save();
 
@@ -39,28 +39,28 @@ class ServicesController extends BaseController
     }
 
     public function load(){
-        $services = DB::select(DB::raw("select m.id, m.name, m.created_at, m.updated_at, m.status 
-                                      from services m
+        $client_types = DB::select(DB::raw("select m.id, m.name, m.created_at, m.updated_at, m.status 
+                                      from customer_type m
                                       order by m.id ASC"));
-        return DataTables::of($services)
+        return DataTables::of($client_types)
             ->make(true);
     }
 
     public function detail($id = 0){
         $template = array(
-            "menu_active" => "services",
+            "menu_active" => "client_types",
             "smenu_active" => "",
-            "page_title" => "Servicios",
+            "page_title" => "Tipos de Cliente",
             "page_subtitle" => ($id == 0 ? "Nuevo" : "Editar" ),
             "user" => session('user')
         );
 
         if($id != 0){
-            $services = Services::find($id);
+            $services = ClientType::find($id);
             $template['item'] = $services;
         }
 
-        return view('services.detail',$template);
+        return view('client_types.detail',$template);
     }
 
     public function save(Request $request)
@@ -73,25 +73,25 @@ class ServicesController extends BaseController
 
 
             if ($id != 0) {
-                $services = Services::find($id);
-                $services->updated_at = date('Y-m-d H:i:s');
+                $client_types = ClientType::find($id);
+                $client_types->updated_at = date('Y-m-d H:i:s');
             } else {
-                $services = new Services();
-                $services->status = 1;
-                $services->created_at = date('Y-m-d H:i:s');
+                $client_types = new ClientType();
+                $client_types->status = 1;
+                $client_types->created_at = date('Y-m-d H:i:s');
             }
-            $services->name = $name;
-            $services->description = $description;
-            $services->image = "";
-            $services->save();
+            $client_types->name = $name;
+            $client_types->description = $description;
+            $client_types->image = "";
+            $client_types->save();
 
             if (!is_null($image)) {
-                $path = imageUploader::upload($services, $image, "services");
-                $services->image = $path;
-                $services->save();
+                $path = imageUploader::upload($client_types, $image, "client_types");
+                $client_types->image = $path;
+                $client_types->save();
             }
 
-            return response(json_encode(array("error" => 0, "id" => $services->id)), 200);
+            return response(json_encode(array("error" => 0, "id" => $client_types->id)), 200);
 
         } catch (Exception $exception) {
             return response(json_encode(array("error" => 1)), 200);

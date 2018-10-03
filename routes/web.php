@@ -48,12 +48,12 @@ Route::group(['prefix' => 'services'], function (){
     Route::get('/detail/{id?}','ServicesController@detail')->middleware('verify_permissions')->name('services_detail');
 });
 
-Route::group(['prefix' => 'services'], function (){
-    Route::get('/','ServicesController@index')->middleware('verify_permissions')->name('services');
-    Route::get('/get_types','ServicesController@load')->name('get_services');
-    Route::post('change_status','ServicesController@change_status')->name('change_status_services');
-    Route::post('/save','ServicesController@save')->name('services_save');
-    Route::get('/detail/{id?}','ServicesController@detail')->middleware('verify_permissions')->name('services_detail');
+Route::group(['prefix' => 'clients'], function (){
+    Route::get('/','ClientsController@index')->middleware('verify_permissions')->name('clients');
+    Route::get('/get_types','ClientsController@load')->name('get_clients');
+    Route::post('change_status','ClientsController@change_status')->name('change_status_client');
+    Route::post('/save','ClientsController@save')->name('client_save');
+    Route::get('/detail/{id?}','ClientsController@detail')->middleware('verify_permissions')->name('client_detail');
 });
 
 Route::group(['prefix' => 'social_media'], function (){
@@ -62,4 +62,12 @@ Route::group(['prefix' => 'social_media'], function (){
     Route::post('change_status','SocialMediaController@change_status')->name('change_status_social_media');
     Route::post('/save','SocialMediaController@save')->name('social_media_save');
     Route::get('/detail/{id?}','SocialMediaController@detail')->middleware('verify_permissions')->name('social_media_detail');
+});
+
+Route::group(['prefix' => 'client_types'], function (){
+    Route::get('/','ClientTypeController@index')->middleware('verify_permissions')->name('client_types');
+    Route::get('/get_types','ClientTypeController@load')->name('get_client_types');
+    Route::post('change_status','ClientTypeController@change_status')->name('change_status_client_type');
+    Route::post('/save','ClientTypeController@save')->name('client_type_save');
+    Route::get('/detail/{id?}','ClientTypeController@detail')->middleware('verify_permissions')->name('client_type_detail');
 });

@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'slider/'.$item->id.'/'.$item->path.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'slider/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });

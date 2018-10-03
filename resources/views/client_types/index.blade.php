@@ -27,7 +27,7 @@
             var dataTable = $('#user').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('get_slider')}}",
+                "ajax": "{{ route('get_client_types')}}",
                 order: [[0, "asc"]],
                 "language": {
                     "lengthMenu": "Mostrar _MENU_ Entradas",
@@ -47,7 +47,7 @@
                 },
                 "columns": [
                     {data: 'id', name: 'id'},
-                    {data: 'title', name: 'title'},
+                    {data: 'name', name: 'name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
                 ],
@@ -77,7 +77,7 @@
                         "aTargets": [5],
                         "mData": null,
                         "mRender": function (data, type, full) {
-                            return '<a href="{{url("slider/detail")}}/' + full.id + '" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;Editar</a>';
+                            return '<a href="{{url("client_type/detail")}}/' + full.id + '" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;Editar</a>';
                         }
 
                     }
@@ -97,7 +97,7 @@
                                 $.ajax({
                                     type: "POST",
                                     dataType: "JSON",
-                                    url: "{{route('change_status_slider')}}",
+                                    url: "{{route('change_status_client_type')}}",
                                     headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() },
                                     data: {
                                         id: id,
@@ -159,7 +159,7 @@
         <div class="col-xs-12">
             <div class="portlet light portlet-fit portlet-datatable bordered">
                 <div class="portlet-title">
-                    <a href="{{route('slider_detail')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Nuevo</a>
+                    <a href="{{route('client_type_detail')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i>&nbsp;Nuevo</a>
                     <div class="tools"> </div>
                 </div>
                 <div class="portlet-body">
