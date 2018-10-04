@@ -71,3 +71,14 @@ Route::group(['prefix' => 'client_types'], function (){
     Route::post('/save','ClientTypeController@save')->name('client_type_save');
     Route::get('/detail/{id?}','ClientTypeController@detail')->middleware('verify_permissions')->name('client_type_detail');
 });
+
+Route::group(['prefix' => 'projects'], function (){
+    Route::get('/','ProjectController@index')->middleware('verify_permissions')->name('projects');
+    Route::get('/get_types','ProjectController@load')->name('get_projects');
+    Route::post('change_status','ProjectController@change_status')->name('change_status_project');
+    Route::post('/save','ProjectController@save')->name('project_save');
+    Route::get('/detail/{id?}','ProjectController@detail')->middleware('verify_permissions')->name('project_detail');
+        
+    Route::post('work/save','WorkController@save')->name('work_save');
+    Route::get('/work/{project_id}/{id?}','WorkController@detail')->middleware('verify_permissions');
+});

@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'clients/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'work/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });
@@ -57,7 +57,7 @@
                         $.ajax({
                             type: "POST",
                             dataType: "json",
-                            url: "{{ route('client_save') }}",
+                            url: "{{ route('work_save') }}",
                             data: new FormData($("#form-user")[0]),
                             contentType: false,
                             processData: false,
@@ -75,7 +75,7 @@
                             success: function (data) {
                                 var error = data.error;
                                 if (error == 0) {
-                                    window.location = "{{ url(route('clients'))}}";
+                                    window.location = "{{ url('projects/detail')}}/{{$project_id}}";
                                 } else {
                                     swal.close();
                                     swal(
@@ -118,13 +118,34 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1_1">
                                 <input hidden name="id" value="<?php if( isset($item) )  echo $item->id; else echo 0;?>" />
+                                <input hidden name="project_id" value="{{$project_id}}" />
                                 <div class="row form-body">
                                     <div class="col-xs-12">
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Titulo</label>
-                                                    <input type="text" class="form-control" name="title" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
+                                                    <input type="text" class="form-control" name="name" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
+                                                    <label>Descripcion</label>
+                                                    <textarea type="text" class="form-control" name="description" placeholder="Ingrese el nombre del blog"><?php if( isset($item) )  echo $item->description;?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
+                                                    <label>Tipo de Proyecto</label>
+                                                    <select class="form-control" name="project_type_id">
+                                                        @foreach($types as $type)
+                                                            <option value="{{$type->id}}" <?php if(isset($item)) if($item->id == $type->id) echo "selected"?> >{{$type->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +166,7 @@
                                 <div class="col-xs-12">
                                     <div class="col-md-3 col-md-9">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
-                                        <a type="button" href="{{route('clients')}}" class="btn default">Cancel</a>
+                                        <a type="button" href="{{url('projects/detail')}}/{{$project_id}}" class="btn default">Cancel</a>
                                     </div>
                                 </div>
                             </div>
