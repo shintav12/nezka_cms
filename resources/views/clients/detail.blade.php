@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'clients/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });
@@ -124,7 +124,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Titulo</label>
-                                                    <input type="text" class="form-control" name="title" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
+                                                    <input type="text" class="form-control" name="name" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
                                                 </div>
                                             </div>
                                         </div>

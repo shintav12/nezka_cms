@@ -69,7 +69,7 @@ class SliderController extends BaseController
             $id = Input::get('id');
             $title = Input::get('title');
             $subtitle = Input::get('subtitle');
-            $image = Input::get('image');
+            $image = $request->file('image');
 
 
             if($id != 0) {

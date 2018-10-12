@@ -124,7 +124,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Nombre</label>
-                                                    <input type="text" class="form-control" name="name" value="<?php if( isset($item) )  echo $item->title;?>" placeholder="Ingrese el nombre del blog">
+                                                    <input type="text" class="form-control" name="name" value="<?php if( isset($item) )  echo $item->name;?>" placeholder="Ingrese el nombre del blog">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,15 +132,7 @@
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
                                                     <label>Link</label>
-                                                    <input type="text" class="form-control" name="url" value="<?php if( isset($item) )  echo $item->subtitle;?>" placeholder="Ingrese el nombre del blog">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group ">
-                                            <div class="col-xs-12">
-                                                <div class="col-xs-12">
-                                                    <label>Imagen</label>
-                                                    <input id="input-24" class="input-fixed" name="image" type="file">
+                                                    <input type="text" class="form-control" name="url" value="<?php if( isset($item) )  echo $item->url;?>" placeholder="Ingrese el nombre del blog">
                                                 </div>
                                             </div>
                                         </div>

@@ -21,7 +21,7 @@
                 }
             );
             $("#input-24").fileinput({
-                allowedFileExtensions: ["png"],
+                allowedFileExtensions: ["jpg"],
                 uploadAsync: false,
                 showUpload: false, // hide upload button
                 showRemove: false,
@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'slider/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });

@@ -69,7 +69,7 @@ class ClientTypeController extends BaseController
             $id = Input::get('id');
             $name = Input::get('name');
             $description = Input::get('description');
-            $image = Input::get('image');
+            $image = $request->file('image');
 
 
             if ($id != 0) {

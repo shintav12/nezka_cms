@@ -68,7 +68,7 @@ class ClientsController extends BaseController
         try {
             $id = Input::get('id');
             $name = Input::get('name');
-            $image = Input::get('image');
+            $image = $request->file('image');
 
 
             if ($id != 0) {
@@ -78,6 +78,12 @@ class ClientsController extends BaseController
                 $clients = new Clients();
                 $clients->status = 1;
                 $clients->created_at = date('Y-m-d H:i:s');
+                $slug = Clients::get_slug($name, $clients->getTable());
+                $clients->slug = $slug;
+            }
+            if(strcmp($clients->name, $name)){
+                $slug = Clients::get_slug($name, $clients->getTable());
+                $clients->slug = $slug;   
             }
             $clients->name = $name;
             $clients->image = "";
