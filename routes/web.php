@@ -48,6 +48,14 @@ Route::group(['prefix' => 'services'], function (){
     Route::get('/detail/{id?}','ServicesController@detail')->middleware('verify_permissions')->name('services_detail');
 });
 
+Route::group(['prefix' => 'services_customer'], function (){
+    Route::get('/','ServicesCustomerController@index')->middleware('verify_permissions')->name('services_customer');
+    Route::get('/get_types','ServicesCustomerController@load')->name('get_services_customer');
+    Route::post('change_status','ServicesCustomerController@change_status')->name('change_status_services_customer');
+    Route::post('/save','ServicesCustomerController@save')->name('services_customer_save');
+    Route::get('/detail/{id?}','ServicesCustomerController@detail')->middleware('verify_permissions')->name('services_customer_detail');
+});
+
 Route::group(['prefix' => 'clients'], function (){
     Route::get('/','ClientsController@index')->middleware('verify_permissions')->name('clients');
     Route::get('/get_types','ClientsController@load')->name('get_clients');
