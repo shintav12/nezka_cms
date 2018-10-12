@@ -40,7 +40,7 @@ class ServicesCustomerController extends BaseController
 
     public function load(){
         $services = DB::select(DB::raw("select m.id, m.name, m.created_at, m.updated_at, m.status 
-                                      from ServicesCustomer m
+                                      from services_customer m
                                       order by m.id ASC"));
         return DataTables::of($services)
             ->make(true);
