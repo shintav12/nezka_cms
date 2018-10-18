@@ -22,7 +22,7 @@ class WorkController extends BaseController
             $status = intval(Input::get('status'));
             $work = Work::find($id);
             $work->status = $status;
-            $project->save();
+            $work->save();
 
             return response(json_encode(array("error" => 0)), 200);
         }catch(Exception $exception){

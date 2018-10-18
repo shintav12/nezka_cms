@@ -21,7 +21,7 @@
                 }
             );
             $("#input-24").fileinput({
-                allowedFileExtensions: ["png"],
+                allowedFileExtensions: ["png","jpg"],
                 uploadAsync: false,
                 showUpload: false, // hide upload button
                 showRemove: false,
@@ -32,6 +32,29 @@
                    "<?php echo config('app.path_url').'work/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
+            });
+            $("#add_image").click(function(){
+                $("#gallery_container").append('<div class="form-group new" style="padding-bottom:25px">'+
+                    '<input hidden value="0" name="image_id[]"/>'+
+                    '<div class="col-xs-12">'+
+                    '<input class="form-control" name="gallery_text[]" data-dirrty-initial-value="" />'+
+                    '</div>'+
+                    '<div class="col-xs-12" style="padding-top:15px">'+
+                    '<input class="input-fixed gallery_images" name="gallery_images[]" type="file" data-dirrty-initial-value="">'+
+                    '</div>'+
+                    '<div clasS="col-xs-12" style="padding-top:15px">' +
+                    '<a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>'+
+                    '</div>'+
+                    '</div>');
+                $(".gallery_images").fileinput({
+                    allowedFileExtensions: ["jpg"],
+                    uploadAsync: false,
+                    showUpload: false,
+                    showRemove: false,
+                    maxFileSize: 300,
+                    initialPreviewAsData: true,
+                    language: 'es'
+                });
             });
             $(".select2").select2();
             $("#form-user").validate({
@@ -114,6 +137,9 @@
                             <li id="tab_li_1" class="tab-trigger active">
                                 <a id="tab_1" href="#tab_1_1" data-toggle="tab"> General </a>
                             </li>
+                            <li id="tab_li_2" class="tab-trigger">
+                                <a id="tab_2" href="#tab_1_2" data-toggle="tab"> General </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_1_1">
@@ -160,6 +186,37 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane" id="tab_1_2">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <div clas="col-xs-12">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
+                                                    <a id="add_image" class="btn btn-primary">Agregar Imágen</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div id="gallery_container">
+                                            <?php if(isset($gallery_images)){
+                                            foreach($gallery_images as $gallery_image){?>
+                                            <div class="form-group" style="padding-bottom:25px">
+                                                <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
+                                                <div class="col-xs-12">
+                                                    <input class="form-control" value="{{$gallery_image->text}}" name="gallery_text[]" />
+                                                </div>
+                                                <div class="col-xs-12" style="padding-top:15px">
+                                                    <input id="input-24{{$gallery_image->id}}" class="input-fixed gallery_images" name="gallery_images[]" type="file">
+                                                </div>
+                                                <div clasS="col-xs-12" style="padding-top:15px">
+                                                    <a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>
+                                                </div>
+                                            </div>
+                                            <?php }}?>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                         <div class="form-actions">
                             <div class="row">

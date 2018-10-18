@@ -21,7 +21,7 @@
                 }
             );
             $("#input-24").fileinput({
-                allowedFileExtensions: ["png"],
+                allowedFileExtensions: ["png","jpg"],
                 uploadAsync: false,
                 showUpload: false, // hide upload button
                 showRemove: false,
