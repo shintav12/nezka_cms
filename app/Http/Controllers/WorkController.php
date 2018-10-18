@@ -100,7 +100,7 @@ class WorkController extends BaseController
                     }else{
                         $image_aux = WorkImages::find($id);
                     }
-                    $image_aux->post_id = $work->id;
+                    $image_aux->project_description_id = $work->id;
                     $image_aux->save();
                     if($gallery_images["tmp_name"][$i] !== ""){
                         $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");

@@ -29,7 +29,7 @@
                 language: 'es',
                 <?php if(isset($item)){?>
                 initialPreview: [
-                   "<?php echo config('app.path_url').'work/'.$item->id.'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
+                   "<?php echo config('app.path_url').'/'.$item->image.'?v='.strtotime($item->updated_at) ?>",
                 ]
                 <?php }?>
             });
@@ -48,7 +48,7 @@
                 maxFileSize: 300,
                 language: 'es',
                 initialPreview: [
-                    "<?php echo config('app.path_url').'post/'.$item->id.'/'.$gallery_image->path.'?v='.strtotime($gallery_image->updated_at) ?>",
+                    "<?php echo config('app.path_url').'/'.$gallery_image->image.'?v='.strtotime($gallery_image->updated_at) ?>",
                 ]
             });
             <?php }}?>
@@ -155,7 +155,7 @@
                                 <a id="tab_1" href="#tab_1_1" data-toggle="tab"> General </a>
                             </li>
                             <li id="tab_li_2" class="tab-trigger">
-                                <a id="tab_2" href="#tab_1_2" data-toggle="tab"> General </a>
+                                <a id="tab_2" href="#tab_1_2" data-toggle="tab"> Galer&iacute;a </a>
                             </li>
                         </ul>
                         <div class="tab-content">
