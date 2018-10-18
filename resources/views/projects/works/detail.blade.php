@@ -33,12 +33,29 @@
                 ]
                 <?php }?>
             });
+            $('body').on('click','.delete',function(){
+                $(this).parent().parent().remove();
+            });
+
+            <?php if(isset($gallery_images)){
+            foreach($gallery_images as $gallery_image){?>
+            $("#input-24{{$gallery_image->id}}").fileinput({
+                allowedFileExtensions: ["jpg"],
+                uploadAsync: false,
+                showUpload: false, // hide upload button
+                showRemove: false,
+                initialPreviewAsData: true,
+                maxFileSize: 300,
+                language: 'es',
+                initialPreview: [
+                    "<?php echo config('app.path_url').'post/'.$item->id.'/'.$gallery_image->path.'?v='.strtotime($gallery_image->updated_at) ?>",
+                ]
+            });
+            <?php }}?>
+
             $("#add_image").click(function(){
                 $("#gallery_container").append('<div class="form-group new" style="padding-bottom:25px">'+
                     '<input hidden value="0" name="image_id[]"/>'+
-                    '<div class="col-xs-12">'+
-                    '<input class="form-control" name="gallery_text[]" data-dirrty-initial-value="" />'+
-                    '</div>'+
                     '<div class="col-xs-12" style="padding-top:15px">'+
                     '<input class="input-fixed gallery_images" name="gallery_images[]" type="file" data-dirrty-initial-value="">'+
                     '</div>'+
@@ -203,9 +220,6 @@
                                             foreach($gallery_images as $gallery_image){?>
                                             <div class="form-group" style="padding-bottom:25px">
                                                 <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
-                                                <div class="col-xs-12">
-                                                    <input class="form-control" value="{{$gallery_image->text}}" name="gallery_text[]" />
-                                                </div>
                                                 <div class="col-xs-12" style="padding-top:15px">
                                                     <input id="input-24{{$gallery_image->id}}" class="input-fixed gallery_images" name="gallery_images[]" type="file">
                                                 </div>

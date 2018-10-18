@@ -46,7 +46,8 @@ class WorkController extends BaseController
             $project = Work::find($id);
             $template['item'] = $project;
             $images = WorkImages::where('project_description_id',$id)->get();
-            $template['images'] = $images;
+            $template['gallery_images'] = $images;
+
         }
 
         return view('projects.works.detail',$template);
@@ -61,7 +62,8 @@ class WorkController extends BaseController
             $project_id = Input::get('project_id');
             $project_type_id = Input::get('project_type_id');
             $image = $request->file('image');
-            $gallery = $request->file('gallery');
+            $gallery_images_id = Input::get('image_id');
+            $gallery_images = array_key_exists('gallery_images', $_FILES) ? $_FILES['gallery_images'] : array();
             
             if ($id != 0) {
                 $work = Work::find($id);
@@ -86,6 +88,26 @@ class WorkController extends BaseController
                 $path = imageUploader::upload($work, $image, "work");
                 $work->image = $path;
                 $work->save();
+            }
+
+            if(is_array($gallery_images) && count($gallery_images)>0)
+            {
+                for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
+                    $id = intval($gallery_images_id[$i]);
+                    if($id === 0){
+                        $image_aux = new WorkImages();
+                        $image_aux->image = "";
+                    }else{
+                        $image_aux = WorkImages::find($id);
+                    }
+                    $image_aux->post_id = $work->id;
+                    $image_aux->save();
+                    if($gallery_images["tmp_name"][$i] !== ""){
+                        $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");
+                        $image_aux->image = $path;
+                        $image_aux->save();
+                    }
+                }
             }
 
             return response(json_encode(array("error" => 0, "id" => $work->id)), 200);
