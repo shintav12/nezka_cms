@@ -48,6 +48,14 @@ Route::group(['prefix' => 'services'], function (){
     Route::get('/detail/{id?}','ServicesController@detail')->middleware('verify_permissions')->name('services_detail');
 });
 
+Route::group(['prefix' => 'news'], function (){
+    Route::get('/','NewsController@index')->middleware('verify_permissions')->name('news');
+    Route::get('/get_types','NewsController@load')->name('get_news');
+    Route::post('change_status','NewsController@change_status')->name('change_status_news');
+    Route::post('/save','NewsController@save')->name('news_save');
+    Route::get('/detail/{id?}','NewsController@detail')->middleware('verify_permissions')->name('news_detail');
+});
+
 Route::group(['prefix' => 'services_customer'], function (){
     Route::get('/','ServicesCustomerController@index')->middleware('verify_permissions')->name('services_customer');
     Route::get('/get_types','ServicesCustomerController@load')->name('get_services_customer');
