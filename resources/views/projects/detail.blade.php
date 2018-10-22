@@ -134,7 +134,7 @@
                                                     <label>Cliente</label>
                                                     <select class="form-control" name="client_id">
                                                         @foreach($clients as $client)
-                                                            <option value="{{$client->id}}" <?php if(isset($item)) if($item->id == $client->id) echo "selected"?> >{{$client->name}}</option>
+                                                            <option value="{{$client->id}}" <?php if(isset($item)) if($item->client_id == $client->id) echo "selected"?> >{{$client->name}}</option>
                                                         @endforeach
                                                         <?php var_dump($clients)?>
                                                     </select>

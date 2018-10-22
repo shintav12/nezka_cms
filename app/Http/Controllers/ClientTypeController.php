@@ -79,10 +79,10 @@ class ClientTypeController extends BaseController
                 $client_types = new ClientType();
                 $client_types->status = 1;
                 $client_types->created_at = date('Y-m-d H:i:s');
+                $client_types->image = "";
             }
             $client_types->name = $name;
             $client_types->description = $description;
-            $client_types->image = "";
             $client_types->save();
 
             if (!is_null($image)) {

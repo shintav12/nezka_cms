@@ -80,10 +80,10 @@ class SliderController extends BaseController
                 $slider  = new SliderBanner();
                 $slider->status = 1;
                 $slider->created_at = date('Y-m-d H:i:s');
+                $slider->image = "";
             }
             $slider->title = $title;
             $slider->subtitle = $subtitle;
-            $slider->image = "";
             $slider->save();
 
             if(!is_null($image)){

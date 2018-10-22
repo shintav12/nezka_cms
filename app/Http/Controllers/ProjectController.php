@@ -85,10 +85,11 @@ class ProjectController extends BaseController
                 $project->status = 1;
                 $project->created_at = date('Y-m-d H:i:s');
                 $slug = Project::get_slug($title, $project->getTable());
+                $project->image = "";
                 $project->slug = $slug;
             }
             $project->title = $title;
-            $project->image = "";
+            
             $project->client_id = $client_id;
             $project->save();
 

@@ -80,13 +80,14 @@ class ClientsController extends BaseController
                 $clients->created_at = date('Y-m-d H:i:s');
                 $slug = Clients::get_slug($name, $clients->getTable());
                 $clients->slug = $slug;
+                $clients->image = "";
             }
             if(strcmp($clients->name, $name)){
                 $slug = Clients::get_slug($name, $clients->getTable());
                 $clients->slug = $slug;   
             }
             $clients->name = $name;
-            $clients->image = "";
+            
             $clients->save();
 
             if (!is_null($image)) {

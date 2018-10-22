@@ -79,10 +79,10 @@ class ServicesCustomerController extends BaseController
                 $services = new ServicesCustomer();
                 $services->status = 1;
                 $services->created_at = date('Y-m-d H:i:s');
+                $services->image = "";
             }
             $services->name = $name;
             $services->description = $description;
-            $services->image = "";
             $services->save();
 
             if (!is_null($image)) {

@@ -79,10 +79,10 @@ class SocialMediaController extends BaseController
                 $slider  = new SliderBanner();
                 $slider->status = 1;
                 $slider->created_at = date('Y-m-d H:i:s');
+                $socialmedia->image = "";
             }
             $socialmedia->name = $name;
             $socialmedia->url = $url;
-            $socialmedia->image = "";
             $socialmedia->save();
 
             if(!is_null($image)){

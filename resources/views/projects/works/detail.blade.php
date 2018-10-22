@@ -183,10 +183,26 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <div class="col-xs-12">
+                                                    <label>Detalle</label>
+                                                    <textarea type="text" class="form-control" name="detail" placeholder="Ingrese el nombre del blog"><?php if( isset($item) )  echo $item->detail;?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
+                                                    <label>Categorias</label>
+                                                    <textarea type="text" class="form-control" name="categories" placeholder="Ingrese el nombre del blog"><?php if( isset($item) )  echo $item->categories;?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <div class="col-xs-12">
                                                     <label>Tipo de Proyecto</label>
                                                     <select class="form-control" name="project_type_id">
                                                         @foreach($types as $type)
-                                                            <option value="{{$type->id}}" <?php if(isset($item)) if($item->id == $type->id) echo "selected"?> >{{$type->name}}</option>
+                                                            <option value="{{$type->id}}" <?php if(isset($item)) if($item->project_type_id == $type->id) echo "selected"?> >{{$type->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

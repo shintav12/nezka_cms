@@ -60,6 +60,8 @@ class WorkController extends BaseController
             $name = Input::get('name');
             $description = Input::get('description');
             $project_id = Input::get('project_id');
+            $detail = Input::get('detail');
+            $categories = Input::get('categories');
             $project_type_id = Input::get('project_type_id');
             $image = $request->file('image');
             $gallery_images_id = Input::get('image_id');
@@ -74,12 +76,14 @@ class WorkController extends BaseController
                 $work->created_at = date('Y-m-d H:i:s');
                 $slug = work::get_slug($name, $work->getTable());
                 $work->slug = $slug;
+                $work->image = "";
             }
             $work->name = $name;
+            $work->categories = $categories;
+            $work->detail = $detail;
             $work->description = $description;
             $work->project_id = $project_id;
             $work->project_type_id = $project_type_id;
-            $work->image = "";
             
             $work->save();
 
@@ -90,6 +94,7 @@ class WorkController extends BaseController
                 $work->save();
             }
 
+            WorkImages::where('project_description_id',$id)->update(["status" => 0]);
             if(is_array($gallery_images) && count($gallery_images)>0)
             {
                 for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
@@ -101,6 +106,7 @@ class WorkController extends BaseController
                         $image_aux = WorkImages::find($id);
                     }
                     $image_aux->project_description_id = $work->id;
+                    $image_aux->status = 1;
                     $image_aux->save();
                     if($gallery_images["tmp_name"][$i] !== ""){
                         $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");
@@ -109,6 +115,8 @@ class WorkController extends BaseController
                     }
                 }
             }
+
+            WorkImages::where('project_description_id',$id)->where('status',0)->delete();
 
             return response(json_encode(array("error" => 0, "id" => $work->id)), 200);
 
