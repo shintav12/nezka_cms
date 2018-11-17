@@ -94,9 +94,10 @@ class WorkController extends BaseController
                 $work->save();
             }
 
-            WorkImages::where('project_description_id',$id)->update(["status" => 0]);
+            
             if(is_array($gallery_images) && count($gallery_images)>0)
             {
+                WorkImages::where('project_description_id',$id)->update(["status" => 0]);
                 for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
                     $id = intval($gallery_images_id[$i]);
                     if($id === 0){
@@ -114,9 +115,10 @@ class WorkController extends BaseController
                         $image_aux->save();
                     }
                 }
+                WorkImages::where('project_description_id',$id)->where('status',0)->delete();
             }
 
-            WorkImages::where('project_description_id',$id)->where('status',0)->delete();
+            
 
             return response(json_encode(array("error" => 0, "id" => $work->id)), 200);
 
