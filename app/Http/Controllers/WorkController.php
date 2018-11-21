@@ -65,7 +65,9 @@ class WorkController extends BaseController
             $project_type_id = Input::get('project_type_id');
             $image = $request->file('image');
             $gallery_images_id = Input::get('image_id');
+            $media_type = Input::get('media_type');
             $gallery_images = array_key_exists('gallery_images', $_FILES) ? $_FILES['gallery_images'] : array();
+            $gallery_text = Input::get('gallery_videos');
             
             if ($id != 0) {
                 $work = Work::find($id);
@@ -94,10 +96,11 @@ class WorkController extends BaseController
                 $work->save();
             }
 
-            
-            if(is_array($gallery_images) && count($gallery_images)>0)
+            WorkImages::where('project_description_id',$id)->update(["status" => 0]);
+            if(is_array($gallery_images_id) && count($gallery_images_id)>0)
             {
-                WorkImages::where('project_description_id',$id)->update(["status" => 0]);
+                
+                $j=0;
                 for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
                     $id = intval($gallery_images_id[$i]);
                     if($id === 0){
@@ -109,14 +112,19 @@ class WorkController extends BaseController
                     $image_aux->project_description_id = $work->id;
                     $image_aux->status = 1;
                     $image_aux->save();
-                    if($gallery_images["tmp_name"][$i] !== ""){
-                        $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");
-                        $image_aux->image = $path;
-                        $image_aux->save();
+                    if($media_type[$i]==1){
+                        if($gallery_images["tmp_name"][$i] !== ""){
+                            $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");
+                            $image_aux->image = $path;
+                        }
+                    }else{
+                        $image_aux->image = $gallery_text[$j];
+                        $j++;
                     }
+                    $image_aux->save();
                 }
-                WorkImages::where('project_description_id',$id)->where('status',0)->delete();
             }
+            WorkImages::where('project_description_id',$id)->where('status',0)->delete();
 
             
 

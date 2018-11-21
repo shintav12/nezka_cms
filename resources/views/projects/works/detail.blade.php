@@ -56,6 +56,7 @@
             $("#add_image").click(function(){
                 $("#gallery_container").append('<div class="form-group new" style="padding-bottom:25px">'+
                     '<input hidden value="0" name="image_id[]"/>'+
+                    '<input hidden value="1" name="media_type[]">'+
                     '<div class="col-xs-12" style="padding-top:15px">'+
                     '<input class="input-fixed gallery_images" name="gallery_images[]" type="file" data-dirrty-initial-value="">'+
                     '</div>'+
@@ -72,6 +73,18 @@
                     initialPreviewAsData: true,
                     language: 'es'
                 });
+            });
+            $("#add_video").click(function(){
+                $("#gallery_container").append('<div class="form-group new" style="padding-bottom:25px">'+
+                    '<input hidden value="0" name="image_id[]"/>'+
+                    '<input hidden value="2" name="media_type[]">'+
+                    '<div class="col-xs-12" style="padding-top:15px">'+
+                    '<textarea class="form-control gallery_videos" name="gallery_videos[]" type="file" data-dirrty-initial-value=""></textarea>'+
+                    '</div>'+
+                    '<div clasS="col-xs-12" style="padding-top:15px">' +
+                    '<a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>'+
+                    '</div>'+
+                    '</div>');
             });
             $(".select2").select2();
             $("#form-user").validate({
@@ -224,8 +237,11 @@
                                     <div class="form-group">
                                         <div clas="col-xs-12">
                                             <div class="col-xs-12">
-                                                <div class="col-xs-12">
+                                                <div class="col-xs-6">
                                                     <a id="add_image" class="btn btn-primary">Agregar Imágen</a>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <a id="add_video" class="btn btn-primary">Agregar Video</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -235,13 +251,25 @@
                                             <?php if(isset($gallery_images)){
                                             foreach($gallery_images as $gallery_image){?>
                                             <div class="form-group" style="padding-bottom:25px">
+                                                @if($gallery_image->type == 'gallery')
                                                 <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
+                                                <input hidden value="1" name="media_type[]">
                                                 <div class="col-xs-12" style="padding-top:15px">
                                                     <input id="input-24{{$gallery_image->id}}" class="input-fixed gallery_images" name="gallery_images[]" type="file">
                                                 </div>
                                                 <div clasS="col-xs-12" style="padding-top:15px">
                                                     <a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>
                                                 </div>
+                                                @else
+                                                    <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
+                                                    <input hidden value="2" name="media_type[]">
+                                                    <div class="col-xs-12" style="padding-top:15px">
+                                                        <textarea class="form-control gallery_videos" name="gallery_videos[]" type="file" data-dirrty-initial-value="">{{$gallery_image->image}}</textarea>
+                                                    </div>
+                                                    <div clas="col-xs-12" style="padding-top:15px">
+                                                        <a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <?php }}?>
                                         </div>
