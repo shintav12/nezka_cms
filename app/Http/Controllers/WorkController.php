@@ -101,7 +101,7 @@ class WorkController extends BaseController
             {
                 
                 $j=0;
-                for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
+                for($i = 0 ; $i < count($gallery_images["tmp_name"]) + count($gallery_videos); $i++){
                     $id = intval($gallery_images_id[$i]);
                     if($id === 0){
                         $image_aux = new WorkImages();

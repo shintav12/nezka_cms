@@ -264,7 +264,7 @@
                                                     <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
                                                     <input hidden value="2" name="media_type[]">
                                                     <div class="col-xs-12" style="padding-top:15px">
-                                                        <textarea class="form-control gallery_videos" name="gallery_videos[]" type="file" data-dirrty-initial-value="">{{$gallery_image->image}}</textarea>
+                                                        <textarea class="form-control gallery_videos" name="gallery_videos[]">{{$gallery_image->image}}</textarea>
                                                     </div>
                                                     <div clas="col-xs-12" style="padding-top:15px">
                                                         <a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>
