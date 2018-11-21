@@ -112,13 +112,14 @@ class WorkController extends BaseController
                     $image_aux->project_description_id = $work->id;
                     $image_aux->status = 1;
                     $image_aux->save();
-                    if($media_type[$i]==1){
+                    if($media_type[$i] == 1){
                         if($gallery_images["tmp_name"][$i] !== ""){
                             $path = imageUploader::upload($image_aux,$gallery_images["tmp_name"][$i],"gallery","slider");
                             $image_aux->image = $path;
                         }
                     }else{
                         $image_aux->image = $gallery_text[$j];
+                        $image_aux->type ="video";
                         $j++;
                     }
                     $image_aux->save();
