@@ -79,12 +79,24 @@
                     '<input hidden value="0" name="image_id[]"/>'+
                     '<input hidden value="2" name="media_type[]">'+
                     '<div class="col-xs-12" style="padding-top:15px">'+
-                    '<textarea class="form-control gallery_videos" name="gallery_videos[]" type="file" data-dirrty-initial-value=""></textarea>'+
+                    '<input class="input-fixed gallery_images" name="gallery_images[]" type="file" data-dirrty-initial-value="">'+
+                    '</div>'+
+                    '<div class="col-xs-12" style="padding-top:15px">'+
+                    '<input class="form-control gallery_videos" name="gallery_videos[]" data-dirrty-initial-value=""/>'+
                     '</div>'+
                     '<div clasS="col-xs-12" style="padding-top:15px">' +
                     '<a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>'+
                     '</div>'+
                     '</div>');
+                $(".gallery_images").fileinput({
+                    allowedFileExtensions: ["jpg"],
+                    uploadAsync: false,
+                    showUpload: false,
+                    showRemove: false,
+                    maxFileSize: 300,
+                    initialPreviewAsData: true,
+                    language: 'es'
+                });
             });
             $(".select2").select2();
             $("#form-user").validate({
@@ -264,8 +276,10 @@
                                                     <input hidden value="{{$gallery_image->id}}" name="image_id[]"/>
                                                     <input hidden value="2" name="media_type[]">
                                                     <div class="col-xs-12" style="padding-top:15px">
-                                                        <textarea class="form-control gallery_videos" name="gallery_videos[]">{{$gallery_image->image}}</textarea>
+                                                        <input id="input-24{{$gallery_image->id}}" class="input-fixed gallery_images" name="gallery_images[]" type="file">
                                                     </div>
+                                                    <div class="col-xs-12" style="padding-top:15px">
+                                                        <input class="form-control gallery_videos" value="{{$gallery_image->video}}" name="gallery_videos[]"/>                                                    </div>
                                                     <div clas="col-xs-12" style="padding-top:15px">
                                                         <a class="btn btn-primary delete"><i class="fa fa-remove"></i> Eliminar</a>
                                                     </div>
