@@ -101,13 +101,13 @@ class WorkController extends BaseController
             {
                 
                 $j=0;
-                for($i = 0 ; $i < count($gallery_images["tmp_name"]); $i++){
-                    $id = intval($gallery_images_id[$i]);
-                    if($id === 0){
+                for($i = 0 ; $i < count($gallery_images_id); $i++){
+                    $aux_id = intval($gallery_images_id[$i]);
+                    if($aux_id === 0){
                         $image_aux = new WorkImages();
                         $image_aux->image = "";
                     }else{
-                        $image_aux = WorkImages::find($id);
+                        $image_aux = WorkImages::find($aux_id);
                     }
                     $image_aux->project_description_id = $work->id;
                     $image_aux->status = 1;
